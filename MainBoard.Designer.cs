@@ -51,7 +51,6 @@
             this.ConnectBtn = new System.Windows.Forms.Button();
             this.SpeedUpdown = new System.Windows.Forms.NumericUpDown();
             this.SpeedLabel = new System.Windows.Forms.Label();
-            this.ConfigBtn = new System.Windows.Forms.Button();
             this.ProgressBar = new System.Windows.Forms.ProgressBar();
             this.ProgressLabel = new System.Windows.Forms.Label();
             this.ReportGroup = new System.Windows.Forms.GroupBox();
@@ -74,7 +73,7 @@
             this.TemperatureLabel = new System.Windows.Forms.Label();
             this.DisconnectBtn = new System.Windows.Forms.Button();
             this.SensorsStatusGroup = new System.Windows.Forms.GroupBox();
-            this.StopRecordBtn = new System.Windows.Forms.Button();
+            this.FindBtn = new System.Windows.Forms.Button();
             this.NavPanel.SuspendLayout();
             this.LogoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -91,9 +90,7 @@
             // NavPanel
             // 
             this.NavPanel.BackColor = System.Drawing.Color.Silver;
-            this.NavPanel.Controls.Add(this.StopRecordBtn);
             this.NavPanel.Controls.Add(this.LogoPanel);
-            this.NavPanel.Controls.Add(this.ConfigBtn);
             this.NavPanel.Location = new System.Drawing.Point(0, 0);
             this.NavPanel.Name = "NavPanel";
             this.NavPanel.Size = new System.Drawing.Size(222, 720);
@@ -256,9 +253,9 @@
             // SensorCombo
             // 
             this.SensorCombo.FormattingEnabled = true;
-            this.SensorCombo.Location = new System.Drawing.Point(296, 36);
+            this.SensorCombo.Location = new System.Drawing.Point(292, 36);
             this.SensorCombo.Name = "SensorCombo";
-            this.SensorCombo.Size = new System.Drawing.Size(186, 28);
+            this.SensorCombo.Size = new System.Drawing.Size(190, 28);
             this.SensorCombo.TabIndex = 7;
             // 
             // SensorsLabel
@@ -273,9 +270,9 @@
             // COMCombo
             // 
             this.COMCombo.FormattingEnabled = true;
-            this.COMCombo.Location = new System.Drawing.Point(296, 88);
+            this.COMCombo.Location = new System.Drawing.Point(292, 88);
             this.COMCombo.Name = "COMCombo";
-            this.COMCombo.Size = new System.Drawing.Size(186, 28);
+            this.COMCombo.Size = new System.Drawing.Size(190, 28);
             this.COMCombo.TabIndex = 9;
             // 
             // COMLabel
@@ -319,16 +316,6 @@
             this.SpeedLabel.Size = new System.Drawing.Size(80, 20);
             this.SpeedLabel.TabIndex = 13;
             this.SpeedLabel.Text = "Speed (%):";
-            // 
-            // ConfigBtn
-            // 
-            this.ConfigBtn.Location = new System.Drawing.Point(50, 133);
-            this.ConfigBtn.Name = "ConfigBtn";
-            this.ConfigBtn.Size = new System.Drawing.Size(90, 28);
-            this.ConfigBtn.TabIndex = 14;
-            this.ConfigBtn.Text = "Config";
-            this.ConfigBtn.UseVisualStyleBackColor = true;
-            this.ConfigBtn.Click += new System.EventHandler(this.ConfigBtn_Click);
             // 
             // ProgressBar
             // 
@@ -543,15 +530,15 @@
             this.SensorsStatusGroup.TabStop = false;
             this.SensorsStatusGroup.Text = "Sensors Status";
             // 
-            // StopRecordBtn
+            // FindBtn
             // 
-            this.StopRecordBtn.Location = new System.Drawing.Point(91, 189);
-            this.StopRecordBtn.Name = "StopRecordBtn";
-            this.StopRecordBtn.Size = new System.Drawing.Size(94, 29);
-            this.StopRecordBtn.TabIndex = 22;
-            this.StopRecordBtn.Text = "Stop Record";
-            this.StopRecordBtn.UseVisualStyleBackColor = true;
-            this.StopRecordBtn.Click += new System.EventHandler(this.StopRecordBtn_Click);
+            this.FindBtn.Location = new System.Drawing.Point(292, 137);
+            this.FindBtn.Name = "FindBtn";
+            this.FindBtn.Size = new System.Drawing.Size(94, 28);
+            this.FindBtn.TabIndex = 22;
+            this.FindBtn.Text = "Find";
+            this.FindBtn.UseVisualStyleBackColor = true;
+            this.FindBtn.Click += new System.EventHandler(this.FindBtn_Click);
             // 
             // MainBoard
             // 
@@ -559,6 +546,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1080, 720);
+            this.Controls.Add(this.FindBtn);
             this.Controls.Add(this.DisconnectBtn);
             this.Controls.Add(this.OtherSpecsGroup);
             this.Controls.Add(this.SensorParameterGroup);
@@ -625,7 +613,6 @@
         private Button ConnectBtn;
         private NumericUpDown SpeedUpdown;
         private Label SpeedLabel;
-        private Button ConfigBtn;
         private ProgressBar ProgressBar;
         private Label ProgressLabel;
         private GroupBox ReportGroup;
@@ -654,6 +641,6 @@
         private Label BotSensorLabel;
         private Label MagnetSensorLabel;
         private GroupBox SensorsStatusGroup;
-        private Button StopRecordBtn;
+        private Button FindBtn;
     }
 }

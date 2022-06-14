@@ -23,13 +23,12 @@ namespace DroptestApp
     {
         SerialPort mySerialPort = new SerialPort();
 
-        WaveIn wave;
+        WaveInEvent wave = new WaveInEvent();
         WaveFileWriter? writer=null;
-        string WavePath = Path.Combine(Application.StartupPath,"/Temp.wav");
+        readonly string WavePath = Path.Combine(Application.StartupPath,"/Temp.wav");
         PlotModel myModel = new PlotModel() { Title = "Deceleration Charts"};
-        LineSeries myLineSeries;
+        LineSeries myLineSeries = new LineSeries();
         double itemp = 0;
-
         public MainBoard()
         {
             InitializeComponent();
@@ -40,28 +39,13 @@ namespace DroptestApp
             myModel.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom,Minimum=0,Maximum=900});
             myModel.Axes.Add(new LinearAxis { Position = AxisPosition.Left});
             PlotFigure.Model = myModel;
-
-            string[] ports = SerialPort.GetPortNames();
-            COMCombo.Items.AddRange(ports);
-            COMCombo.SelectedIndex = 0;
-
-            for (int n = -1; n < WaveIn.DeviceCount; n++)
-            {
-                var caps = WaveIn.GetCapabilities(n);
-                SensorCombo.Items.Add(caps.ProductName);
-            }
-            SensorCombo.SelectedIndex = 0;
+            FindBtn_Click(this,e);
         }
 
         private void MainBoard_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (mySerialPort.IsOpen)
-                mySerialPort.Write(new byte[] { 115 }, 0, 1);
-                mySerialPort.Close();
-                writer?.Dispose();
-                writer = null;
-                wave.StopRecording();
-                wave.Dispose();
+            DisconnectBtn_Click(this,e);
+
         }
 
         private void DisconnectBtn_Click(object sender, EventArgs e)
@@ -70,9 +54,16 @@ namespace DroptestApp
             {
                 mySerialPort.Write(new byte[] { 115 }, 0, 1);
                 mySerialPort.Close();
-                ConnectBtn.Enabled = true;
             }
 
+            if (wave != null)
+            {
+                writer?.Dispose();
+                writer = null;
+                wave.StopRecording();
+                wave.Dispose();
+            }
+            ConnectBtn.Enabled = true;
         }
 
         private void ConnectBtn_Click(object sender, EventArgs e)
@@ -86,13 +77,6 @@ namespace DroptestApp
                 ConnectBtn.Enabled = false;
                 mySerialPort.Write(new byte[] { 105 }, 0, 1);
                 mySerialPort.Write(new byte[] { (byte)SpeedUpdown.Value },0,1);
-
-                wave = new WaveIn();
-                wave.DeviceNumber = 1;
-                System.Diagnostics.Debug.WriteLine(SensorCombo.SelectedItem);
-                wave.WaveFormat = new WaveFormat(int.Parse(SamplingRateText.Text), int.Parse(BitDepthText.Text), 2);
-                writer = new WaveFileWriter(WavePath, wave.WaveFormat);
-                wave.DataAvailable += OnSensorDataAvailable;
             }
             catch(Exception ex)
             {
@@ -128,6 +112,7 @@ namespace DroptestApp
         private void StartBtn_Click(object sender, EventArgs e)
         {
             mySerialPort.Write(new byte[] { 200 }, 0, 1);
+
         }
 
         private void StopBtn_Click(object sender, EventArgs e)
@@ -145,7 +130,6 @@ namespace DroptestApp
             Int32 len = mySerialPort.BytesToRead;
             byte[] COMbuffer = new byte[len];
             mySerialPort.Read(COMbuffer,0,len);
-            System.Diagnostics.Debug.WriteLine(COMbuffer[0]);
             SensorStatusUpdate(COMbuffer[len - 1]);
         }
         private void SensorStatusUpdate(byte data)
@@ -195,9 +179,17 @@ namespace DroptestApp
                     break;
                 case 200:
                     System.Diagnostics.Debug.WriteLine("Drop");
+                    MaxDecelerationText.Text = "0";
                     itemp = 0;
                     myLineSeries = new LineSeries();
+                    myModel.Series.Clear();
                     myModel.Series.Add(myLineSeries);
+
+                    wave = new WaveInEvent();
+                    wave.DeviceNumber = SensorCombo.SelectedIndex;
+                    wave.WaveFormat = new WaveFormat(int.Parse(SamplingRateText.Text), int.Parse(BitDepthText.Text), 1);
+                    writer = new WaveFileWriter(WavePath, wave.WaveFormat);
+                    wave.DataAvailable += OnSensorDataAvailable;
                     wave.StartRecording();
                     break;
                 default:
@@ -207,11 +199,6 @@ namespace DroptestApp
                     break;
             }
 
-        }
-
-
-        private void ConfigBtn_Click(object sender, EventArgs e)
-        {
         }
 
         private void OnSensorDataAvailable(object sender, WaveInEventArgs args)
@@ -227,6 +214,7 @@ namespace DroptestApp
                     writer = null;
                     wave.StopRecording();
                     wave.Dispose();
+                    MaxDecelerationText.Text = myLineSeries.MaxY.ToString("F3");
                 }
             }
 
@@ -238,8 +226,21 @@ namespace DroptestApp
             myModel.InvalidatePlot(true);
         }
 
-        private void StopRecordBtn_Click(object sender, EventArgs e)      
+        private void FindBtn_Click(object sender, EventArgs e)
         {
+            COMCombo.Items.Clear();
+            SensorCombo.Items.Clear();
+
+            string[] ports = SerialPort.GetPortNames();
+            COMCombo.Items.AddRange(ports);
+            COMCombo.SelectedIndex = 0;
+
+            for (int n = 0; n < WaveIn.DeviceCount; n++)
+            {
+                var caps = WaveIn.GetCapabilities(n);
+                SensorCombo.Items.Add(caps.ProductName);
+            }
+            SensorCombo.SelectedIndex = 0;
         }
     }
 }
