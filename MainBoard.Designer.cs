@@ -41,7 +41,7 @@
             this.PlotFigure = new OxyPlot.WindowsForms.PlotView();
             this.UpBtn = new System.Windows.Forms.Button();
             this.DownBtn = new System.Windows.Forms.Button();
-            this.MagnetBtn = new System.Windows.Forms.Button();
+            this.MagOnBtn = new System.Windows.Forms.Button();
             this.StopBtn = new System.Windows.Forms.Button();
             this.StartBtn = new System.Windows.Forms.Button();
             this.SensorCombo = new System.Windows.Forms.ComboBox();
@@ -51,14 +51,12 @@
             this.ConnectBtn = new System.Windows.Forms.Button();
             this.SpeedUpdown = new System.Windows.Forms.NumericUpDown();
             this.SpeedLabel = new System.Windows.Forms.Label();
-            this.ProgressBar = new System.Windows.Forms.ProgressBar();
-            this.ProgressLabel = new System.Windows.Forms.Label();
             this.ReportGroup = new System.Windows.Forms.GroupBox();
-            this.SaveBtn = new System.Windows.Forms.Button();
             this.MaxForceText = new System.Windows.Forms.TextBox();
             this.MaxDecelerationText = new System.Windows.Forms.TextBox();
             this.MaxForceLabel = new System.Windows.Forms.Label();
             this.MaxDecelerationLabel = new System.Windows.Forms.Label();
+            this.SaveBtn = new System.Windows.Forms.Button();
             this.SensorParameterGroup = new System.Windows.Forms.GroupBox();
             this.BitDepthText = new System.Windows.Forms.TextBox();
             this.MeasuringTimesText = new System.Windows.Forms.TextBox();
@@ -74,6 +72,14 @@
             this.DisconnectBtn = new System.Windows.Forms.Button();
             this.SensorsStatusGroup = new System.Windows.Forms.GroupBox();
             this.FindBtn = new System.Windows.Forms.Button();
+            this.RecordPanel = new System.Windows.Forms.Panel();
+            this.MagOffBtn = new System.Windows.Forms.Button();
+            this.ExportGroup = new System.Windows.Forms.GroupBox();
+            this.NewIDBtn = new System.Windows.Forms.Button();
+            this.TestIDText = new System.Windows.Forms.TextBox();
+            this.CustomerText = new System.Windows.Forms.TextBox();
+            this.TestIDLabel = new System.Windows.Forms.Label();
+            this.CustomerLabel = new System.Windows.Forms.Label();
             this.NavPanel.SuspendLayout();
             this.LogoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -85,34 +91,38 @@
             this.SensorParameterGroup.SuspendLayout();
             this.OtherSpecsGroup.SuspendLayout();
             this.SensorsStatusGroup.SuspendLayout();
+            this.RecordPanel.SuspendLayout();
+            this.ExportGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // NavPanel
             // 
-            this.NavPanel.BackColor = System.Drawing.Color.Silver;
+            this.NavPanel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.NavPanel.Controls.Add(this.LogoPanel);
+            this.NavPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.NavPanel.Location = new System.Drawing.Point(0, 0);
             this.NavPanel.Name = "NavPanel";
-            this.NavPanel.Size = new System.Drawing.Size(222, 720);
+            this.NavPanel.Size = new System.Drawing.Size(1080, 61);
             this.NavPanel.TabIndex = 0;
             // 
             // LogoPanel
             // 
-            this.LogoPanel.BackColor = System.Drawing.Color.DimGray;
+            this.LogoPanel.AutoSize = true;
+            this.LogoPanel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.LogoPanel.Controls.Add(this.pictureBox1);
             this.LogoPanel.Controls.Add(this.IUDLABlabel);
-            this.LogoPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LogoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LogoPanel.Location = new System.Drawing.Point(0, 0);
             this.LogoPanel.Name = "LogoPanel";
-            this.LogoPanel.Size = new System.Drawing.Size(222, 90);
+            this.LogoPanel.Size = new System.Drawing.Size(1080, 61);
             this.LogoPanel.TabIndex = 0;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::DroptestApp.Properties.Resources.icons8_redux_50;
-            this.pictureBox1.Location = new System.Drawing.Point(25, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(60, 60);
+            this.pictureBox1.Size = new System.Drawing.Size(47, 42);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -122,7 +132,7 @@
             this.IUDLABlabel.AutoSize = true;
             this.IUDLABlabel.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.IUDLABlabel.ForeColor = System.Drawing.Color.White;
-            this.IUDLABlabel.Location = new System.Drawing.Point(91, 26);
+            this.IUDLABlabel.Location = new System.Drawing.Point(65, 12);
             this.IUDLABlabel.Name = "IUDLABlabel";
             this.IUDLABlabel.Size = new System.Drawing.Size(119, 37);
             this.IUDLABlabel.TabIndex = 0;
@@ -188,10 +198,10 @@
             // PlotFigure
             // 
             this.PlotFigure.BackColor = System.Drawing.Color.White;
-            this.PlotFigure.Location = new System.Drawing.Point(228, 189);
+            this.PlotFigure.Location = new System.Drawing.Point(0, 134);
             this.PlotFigure.Name = "PlotFigure";
             this.PlotFigure.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.PlotFigure.Size = new System.Drawing.Size(846, 366);
+            this.PlotFigure.Size = new System.Drawing.Size(1080, 367);
             this.PlotFigure.TabIndex = 1;
             this.PlotFigure.Text = "PlotFigure";
             this.PlotFigure.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
@@ -200,8 +210,9 @@
             // 
             // UpBtn
             // 
+            this.UpBtn.Enabled = false;
             this.UpBtn.Image = global::DroptestApp.Properties.Resources.caret_arrow_up;
-            this.UpBtn.Location = new System.Drawing.Point(714, 36);
+            this.UpBtn.Location = new System.Drawing.Point(723, 23);
             this.UpBtn.Name = "UpBtn";
             this.UpBtn.Size = new System.Drawing.Size(50, 50);
             this.UpBtn.TabIndex = 2;
@@ -211,8 +222,9 @@
             // 
             // DownBtn
             // 
+            this.DownBtn.Enabled = false;
             this.DownBtn.Image = global::DroptestApp.Properties.Resources.sort_down;
-            this.DownBtn.Location = new System.Drawing.Point(714, 115);
+            this.DownBtn.Location = new System.Drawing.Point(723, 78);
             this.DownBtn.Name = "DownBtn";
             this.DownBtn.Size = new System.Drawing.Size(50, 50);
             this.DownBtn.TabIndex = 3;
@@ -220,19 +232,21 @@
             this.DownBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DownBtn_MouseDown);
             this.DownBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DownBtn_MouseUp);
             // 
-            // MagnetBtn
+            // MagOnBtn
             // 
-            this.MagnetBtn.Location = new System.Drawing.Point(593, 137);
-            this.MagnetBtn.Name = "MagnetBtn";
-            this.MagnetBtn.Size = new System.Drawing.Size(92, 28);
-            this.MagnetBtn.TabIndex = 4;
-            this.MagnetBtn.Text = "Magnet";
-            this.MagnetBtn.UseVisualStyleBackColor = true;
-            this.MagnetBtn.Click += new System.EventHandler(this.MagnetBtn_Click);
+            this.MagOnBtn.Enabled = false;
+            this.MagOnBtn.Location = new System.Drawing.Point(515, 66);
+            this.MagOnBtn.Name = "MagOnBtn";
+            this.MagOnBtn.Size = new System.Drawing.Size(92, 28);
+            this.MagOnBtn.TabIndex = 4;
+            this.MagOnBtn.Text = "Mag On";
+            this.MagOnBtn.UseVisualStyleBackColor = true;
+            this.MagOnBtn.Click += new System.EventHandler(this.MagOnBtn_Click);
             // 
             // StopBtn
             // 
-            this.StopBtn.Location = new System.Drawing.Point(593, 103);
+            this.StopBtn.Enabled = false;
+            this.StopBtn.Location = new System.Drawing.Point(613, 100);
             this.StopBtn.Name = "StopBtn";
             this.StopBtn.Size = new System.Drawing.Size(92, 28);
             this.StopBtn.TabIndex = 5;
@@ -242,9 +256,10 @@
             // 
             // StartBtn
             // 
-            this.StartBtn.Location = new System.Drawing.Point(593, 69);
+            this.StartBtn.Enabled = false;
+            this.StartBtn.Location = new System.Drawing.Point(613, 65);
             this.StartBtn.Name = "StartBtn";
-            this.StartBtn.Size = new System.Drawing.Size(92, 28);
+            this.StartBtn.Size = new System.Drawing.Size(92, 30);
             this.StartBtn.TabIndex = 6;
             this.StartBtn.Text = "Start";
             this.StartBtn.UseVisualStyleBackColor = true;
@@ -253,15 +268,15 @@
             // SensorCombo
             // 
             this.SensorCombo.FormattingEnabled = true;
-            this.SensorCombo.Location = new System.Drawing.Point(292, 36);
+            this.SensorCombo.Location = new System.Drawing.Point(83, 29);
             this.SensorCombo.Name = "SensorCombo";
-            this.SensorCombo.Size = new System.Drawing.Size(190, 28);
+            this.SensorCombo.Size = new System.Drawing.Size(310, 28);
             this.SensorCombo.TabIndex = 7;
             // 
             // SensorsLabel
             // 
             this.SensorsLabel.AutoSize = true;
-            this.SensorsLabel.Location = new System.Drawing.Point(228, 39);
+            this.SensorsLabel.Location = new System.Drawing.Point(6, 35);
             this.SensorsLabel.Name = "SensorsLabel";
             this.SensorsLabel.Size = new System.Drawing.Size(62, 20);
             this.SensorsLabel.TabIndex = 8;
@@ -270,15 +285,15 @@
             // COMCombo
             // 
             this.COMCombo.FormattingEnabled = true;
-            this.COMCombo.Location = new System.Drawing.Point(292, 88);
+            this.COMCombo.Location = new System.Drawing.Point(83, 66);
             this.COMCombo.Name = "COMCombo";
-            this.COMCombo.Size = new System.Drawing.Size(190, 28);
+            this.COMCombo.Size = new System.Drawing.Size(310, 28);
             this.COMCombo.TabIndex = 9;
             // 
             // COMLabel
             // 
             this.COMLabel.AutoSize = true;
-            this.COMLabel.Location = new System.Drawing.Point(228, 91);
+            this.COMLabel.Location = new System.Drawing.Point(6, 70);
             this.COMLabel.Name = "COMLabel";
             this.COMLabel.Size = new System.Drawing.Size(49, 20);
             this.COMLabel.TabIndex = 10;
@@ -286,9 +301,9 @@
             // 
             // ConnectBtn
             // 
-            this.ConnectBtn.Location = new System.Drawing.Point(392, 137);
+            this.ConnectBtn.Location = new System.Drawing.Point(399, 65);
             this.ConnectBtn.Name = "ConnectBtn";
-            this.ConnectBtn.Size = new System.Drawing.Size(90, 28);
+            this.ConnectBtn.Size = new System.Drawing.Size(94, 30);
             this.ConnectBtn.TabIndex = 11;
             this.ConnectBtn.Text = "Connect";
             this.ConnectBtn.UseVisualStyleBackColor = true;
@@ -296,7 +311,7 @@
             // 
             // SpeedUpdown
             // 
-            this.SpeedUpdown.Location = new System.Drawing.Point(593, 36);
+            this.SpeedUpdown.Location = new System.Drawing.Point(613, 32);
             this.SpeedUpdown.Name = "SpeedUpdown";
             this.SpeedUpdown.Size = new System.Drawing.Size(92, 27);
             this.SpeedUpdown.TabIndex = 12;
@@ -311,68 +326,48 @@
             // SpeedLabel
             // 
             this.SpeedLabel.AutoSize = true;
-            this.SpeedLabel.Location = new System.Drawing.Point(507, 39);
+            this.SpeedLabel.Location = new System.Drawing.Point(515, 35);
             this.SpeedLabel.Name = "SpeedLabel";
             this.SpeedLabel.Size = new System.Drawing.Size(80, 20);
             this.SpeedLabel.TabIndex = 13;
             this.SpeedLabel.Text = "Speed (%):";
             // 
-            // ProgressBar
-            // 
-            this.ProgressBar.Location = new System.Drawing.Point(865, 138);
-            this.ProgressBar.Name = "ProgressBar";
-            this.ProgressBar.Size = new System.Drawing.Size(191, 29);
-            this.ProgressBar.TabIndex = 16;
-            // 
-            // ProgressLabel
-            // 
-            this.ProgressLabel.AutoSize = true;
-            this.ProgressLabel.Location = new System.Drawing.Point(787, 141);
-            this.ProgressLabel.Name = "ProgressLabel";
-            this.ProgressLabel.Size = new System.Drawing.Size(72, 20);
-            this.ProgressLabel.TabIndex = 17;
-            this.ProgressLabel.Text = "Progress: ";
-            // 
             // ReportGroup
             // 
-            this.ReportGroup.Controls.Add(this.SaveBtn);
             this.ReportGroup.Controls.Add(this.MaxForceText);
             this.ReportGroup.Controls.Add(this.MaxDecelerationText);
             this.ReportGroup.Controls.Add(this.MaxForceLabel);
             this.ReportGroup.Controls.Add(this.MaxDecelerationLabel);
-            this.ReportGroup.Location = new System.Drawing.Point(787, 570);
+            this.ReportGroup.Location = new System.Drawing.Point(441, 520);
             this.ReportGroup.Name = "ReportGroup";
-            this.ReportGroup.Size = new System.Drawing.Size(269, 128);
+            this.ReportGroup.Size = new System.Drawing.Size(240, 128);
             this.ReportGroup.TabIndex = 18;
             this.ReportGroup.TabStop = false;
             this.ReportGroup.Text = "Report";
             // 
-            // SaveBtn
-            // 
-            this.SaveBtn.Location = new System.Drawing.Point(168, 89);
-            this.SaveBtn.Name = "SaveBtn";
-            this.SaveBtn.Size = new System.Drawing.Size(95, 29);
-            this.SaveBtn.TabIndex = 4;
-            this.SaveBtn.Text = "Save";
-            this.SaveBtn.UseVisualStyleBackColor = true;
-            // 
             // MaxForceText
             // 
-            this.MaxForceText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MaxForceText.BackColor = System.Drawing.Color.White;
+            this.MaxForceText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.MaxForceText.ForeColor = System.Drawing.Color.Black;
             this.MaxForceText.Location = new System.Drawing.Point(168, 59);
             this.MaxForceText.Name = "MaxForceText";
-            this.MaxForceText.Size = new System.Drawing.Size(95, 27);
+            this.MaxForceText.ReadOnly = true;
+            this.MaxForceText.Size = new System.Drawing.Size(61, 20);
             this.MaxForceText.TabIndex = 3;
             this.MaxForceText.Text = "0";
             // 
             // MaxDecelerationText
             // 
-            this.MaxDecelerationText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MaxDecelerationText.Location = new System.Drawing.Point(168, 25);
+            this.MaxDecelerationText.BackColor = System.Drawing.Color.White;
+            this.MaxDecelerationText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.MaxDecelerationText.ForeColor = System.Drawing.Color.Black;
+            this.MaxDecelerationText.Location = new System.Drawing.Point(168, 26);
             this.MaxDecelerationText.Name = "MaxDecelerationText";
-            this.MaxDecelerationText.Size = new System.Drawing.Size(95, 27);
+            this.MaxDecelerationText.ReadOnly = true;
+            this.MaxDecelerationText.Size = new System.Drawing.Size(61, 20);
             this.MaxDecelerationText.TabIndex = 2;
-            this.MaxDecelerationText.Text = "0";
+            this.MaxDecelerationText.Text = "1";
             // 
             // MaxForceLabel
             // 
@@ -392,6 +387,16 @@
             this.MaxDecelerationLabel.TabIndex = 0;
             this.MaxDecelerationLabel.Text = "Max Deceleration (g): ";
             // 
+            // SaveBtn
+            // 
+            this.SaveBtn.Location = new System.Drawing.Point(280, 91);
+            this.SaveBtn.Name = "SaveBtn";
+            this.SaveBtn.Size = new System.Drawing.Size(95, 28);
+            this.SaveBtn.TabIndex = 4;
+            this.SaveBtn.Text = "Save";
+            this.SaveBtn.UseVisualStyleBackColor = true;
+            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
+            // 
             // SensorParameterGroup
             // 
             this.SensorParameterGroup.Controls.Add(this.BitDepthText);
@@ -400,34 +405,34 @@
             this.SensorParameterGroup.Controls.Add(this.BitDepthLabel);
             this.SensorParameterGroup.Controls.Add(this.MeasuringTimesLabel);
             this.SensorParameterGroup.Controls.Add(this.SamplingRateLabel);
-            this.SensorParameterGroup.Location = new System.Drawing.Point(244, 570);
+            this.SensorParameterGroup.Location = new System.Drawing.Point(12, 520);
             this.SensorParameterGroup.Name = "SensorParameterGroup";
-            this.SensorParameterGroup.Size = new System.Drawing.Size(263, 128);
+            this.SensorParameterGroup.Size = new System.Drawing.Size(225, 128);
             this.SensorParameterGroup.TabIndex = 19;
             this.SensorParameterGroup.TabStop = false;
             this.SensorParameterGroup.Text = "Sensor Parameters";
             // 
             // BitDepthText
             // 
-            this.BitDepthText.Location = new System.Drawing.Point(157, 91);
+            this.BitDepthText.Location = new System.Drawing.Point(161, 91);
             this.BitDepthText.Name = "BitDepthText";
-            this.BitDepthText.Size = new System.Drawing.Size(100, 27);
+            this.BitDepthText.Size = new System.Drawing.Size(54, 27);
             this.BitDepthText.TabIndex = 5;
             this.BitDepthText.Text = "16";
             // 
             // MeasuringTimesText
             // 
-            this.MeasuringTimesText.Location = new System.Drawing.Point(157, 56);
+            this.MeasuringTimesText.Location = new System.Drawing.Point(161, 58);
             this.MeasuringTimesText.Name = "MeasuringTimesText";
-            this.MeasuringTimesText.Size = new System.Drawing.Size(100, 27);
+            this.MeasuringTimesText.Size = new System.Drawing.Size(54, 27);
             this.MeasuringTimesText.TabIndex = 4;
             this.MeasuringTimesText.Text = "5";
             // 
             // SamplingRateText
             // 
-            this.SamplingRateText.Location = new System.Drawing.Point(157, 22);
+            this.SamplingRateText.Location = new System.Drawing.Point(161, 24);
             this.SamplingRateText.Name = "SamplingRateText";
-            this.SamplingRateText.Size = new System.Drawing.Size(100, 27);
+            this.SamplingRateText.Size = new System.Drawing.Size(54, 27);
             this.SamplingRateText.TabIndex = 3;
             this.SamplingRateText.Text = "16000";
             // 
@@ -464,28 +469,28 @@
             this.OtherSpecsGroup.Controls.Add(this.TemperatureText);
             this.OtherSpecsGroup.Controls.Add(this.HumidityLabel);
             this.OtherSpecsGroup.Controls.Add(this.TemperatureLabel);
-            this.OtherSpecsGroup.Location = new System.Drawing.Point(513, 570);
+            this.OtherSpecsGroup.Location = new System.Drawing.Point(243, 520);
             this.OtherSpecsGroup.Name = "OtherSpecsGroup";
-            this.OtherSpecsGroup.Size = new System.Drawing.Size(268, 128);
+            this.OtherSpecsGroup.Size = new System.Drawing.Size(192, 128);
             this.OtherSpecsGroup.TabIndex = 20;
             this.OtherSpecsGroup.TabStop = false;
             this.OtherSpecsGroup.Text = "Other Specs";
             // 
             // HumidityText
             // 
-            this.HumidityText.Location = new System.Drawing.Point(131, 56);
+            this.HumidityText.Location = new System.Drawing.Point(132, 56);
             this.HumidityText.Name = "HumidityText";
-            this.HumidityText.Size = new System.Drawing.Size(131, 27);
+            this.HumidityText.Size = new System.Drawing.Size(50, 27);
             this.HumidityText.TabIndex = 5;
-            this.HumidityText.Text = "0";
+            this.HumidityText.Text = "1";
             // 
             // TemperatureText
             // 
-            this.TemperatureText.Location = new System.Drawing.Point(131, 22);
+            this.TemperatureText.Location = new System.Drawing.Point(132, 22);
             this.TemperatureText.Name = "TemperatureText";
-            this.TemperatureText.Size = new System.Drawing.Size(131, 27);
+            this.TemperatureText.Size = new System.Drawing.Size(50, 27);
             this.TemperatureText.TabIndex = 4;
-            this.TemperatureText.Text = "0";
+            this.TemperatureText.Text = "1";
             // 
             // HumidityLabel
             // 
@@ -507,9 +512,9 @@
             // 
             // DisconnectBtn
             // 
-            this.DisconnectBtn.Location = new System.Drawing.Point(488, 137);
+            this.DisconnectBtn.Location = new System.Drawing.Point(399, 100);
             this.DisconnectBtn.Name = "DisconnectBtn";
-            this.DisconnectBtn.Size = new System.Drawing.Size(90, 28);
+            this.DisconnectBtn.Size = new System.Drawing.Size(94, 28);
             this.DisconnectBtn.TabIndex = 21;
             this.DisconnectBtn.Text = "Disconnect";
             this.DisconnectBtn.UseVisualStyleBackColor = true;
@@ -523,57 +528,142 @@
             this.SensorsStatusGroup.Controls.Add(this.BotSensorLabel);
             this.SensorsStatusGroup.Controls.Add(this.TopSensorPic);
             this.SensorsStatusGroup.Controls.Add(this.TopSensorLabel);
-            this.SensorsStatusGroup.Location = new System.Drawing.Point(787, 24);
+            this.SensorsStatusGroup.Location = new System.Drawing.Point(795, 19);
             this.SensorsStatusGroup.Name = "SensorsStatusGroup";
-            this.SensorsStatusGroup.Size = new System.Drawing.Size(269, 108);
+            this.SensorsStatusGroup.Size = new System.Drawing.Size(269, 109);
             this.SensorsStatusGroup.TabIndex = 15;
             this.SensorsStatusGroup.TabStop = false;
             this.SensorsStatusGroup.Text = "Sensors Status";
             // 
             // FindBtn
             // 
-            this.FindBtn.Location = new System.Drawing.Point(292, 137);
+            this.FindBtn.Location = new System.Drawing.Point(399, 29);
             this.FindBtn.Name = "FindBtn";
-            this.FindBtn.Size = new System.Drawing.Size(94, 28);
+            this.FindBtn.Size = new System.Drawing.Size(94, 30);
             this.FindBtn.TabIndex = 22;
             this.FindBtn.Text = "Find";
             this.FindBtn.UseVisualStyleBackColor = true;
             this.FindBtn.Click += new System.EventHandler(this.FindBtn_Click);
             // 
+            // RecordPanel
+            // 
+            this.RecordPanel.AutoSize = true;
+            this.RecordPanel.Controls.Add(this.MagOffBtn);
+            this.RecordPanel.Controls.Add(this.ExportGroup);
+            this.RecordPanel.Controls.Add(this.FindBtn);
+            this.RecordPanel.Controls.Add(this.DisconnectBtn);
+            this.RecordPanel.Controls.Add(this.OtherSpecsGroup);
+            this.RecordPanel.Controls.Add(this.SensorParameterGroup);
+            this.RecordPanel.Controls.Add(this.ReportGroup);
+            this.RecordPanel.Controls.Add(this.SensorsStatusGroup);
+            this.RecordPanel.Controls.Add(this.SpeedLabel);
+            this.RecordPanel.Controls.Add(this.SpeedUpdown);
+            this.RecordPanel.Controls.Add(this.ConnectBtn);
+            this.RecordPanel.Controls.Add(this.COMLabel);
+            this.RecordPanel.Controls.Add(this.COMCombo);
+            this.RecordPanel.Controls.Add(this.SensorsLabel);
+            this.RecordPanel.Controls.Add(this.SensorCombo);
+            this.RecordPanel.Controls.Add(this.StartBtn);
+            this.RecordPanel.Controls.Add(this.StopBtn);
+            this.RecordPanel.Controls.Add(this.MagOnBtn);
+            this.RecordPanel.Controls.Add(this.DownBtn);
+            this.RecordPanel.Controls.Add(this.UpBtn);
+            this.RecordPanel.Controls.Add(this.PlotFigure);
+            this.RecordPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RecordPanel.Location = new System.Drawing.Point(0, 61);
+            this.RecordPanel.Name = "RecordPanel";
+            this.RecordPanel.Size = new System.Drawing.Size(1080, 660);
+            this.RecordPanel.TabIndex = 23;
+            // 
+            // MagOffBtn
+            // 
+            this.MagOffBtn.Enabled = false;
+            this.MagOffBtn.Location = new System.Drawing.Point(515, 100);
+            this.MagOffBtn.Name = "MagOffBtn";
+            this.MagOffBtn.Size = new System.Drawing.Size(92, 28);
+            this.MagOffBtn.TabIndex = 28;
+            this.MagOffBtn.Text = "Mag Off";
+            this.MagOffBtn.UseVisualStyleBackColor = true;
+            this.MagOffBtn.Click += new System.EventHandler(this.MagOffBtn_Click);
+            // 
+            // ExportGroup
+            // 
+            this.ExportGroup.Controls.Add(this.NewIDBtn);
+            this.ExportGroup.Controls.Add(this.TestIDText);
+            this.ExportGroup.Controls.Add(this.CustomerText);
+            this.ExportGroup.Controls.Add(this.TestIDLabel);
+            this.ExportGroup.Controls.Add(this.CustomerLabel);
+            this.ExportGroup.Controls.Add(this.SaveBtn);
+            this.ExportGroup.Location = new System.Drawing.Point(687, 520);
+            this.ExportGroup.Name = "ExportGroup";
+            this.ExportGroup.Size = new System.Drawing.Size(381, 128);
+            this.ExportGroup.TabIndex = 27;
+            this.ExportGroup.TabStop = false;
+            this.ExportGroup.Text = "Export";
+            // 
+            // NewIDBtn
+            // 
+            this.NewIDBtn.Location = new System.Drawing.Point(280, 56);
+            this.NewIDBtn.Name = "NewIDBtn";
+            this.NewIDBtn.Size = new System.Drawing.Size(95, 29);
+            this.NewIDBtn.TabIndex = 30;
+            this.NewIDBtn.Text = "New ID";
+            this.NewIDBtn.UseVisualStyleBackColor = true;
+            this.NewIDBtn.Click += new System.EventHandler(this.NewIDBtn_Click);
+            // 
+            // TestIDText
+            // 
+            this.TestIDText.BackColor = System.Drawing.Color.White;
+            this.TestIDText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TestIDText.ForeColor = System.Drawing.Color.Black;
+            this.TestIDText.Location = new System.Drawing.Point(92, 63);
+            this.TestIDText.Name = "TestIDText";
+            this.TestIDText.ReadOnly = true;
+            this.TestIDText.Size = new System.Drawing.Size(164, 20);
+            this.TestIDText.TabIndex = 29;
+            // 
+            // CustomerText
+            // 
+            this.CustomerText.Location = new System.Drawing.Point(92, 24);
+            this.CustomerText.Name = "CustomerText";
+            this.CustomerText.Size = new System.Drawing.Size(283, 27);
+            this.CustomerText.TabIndex = 28;
+            // 
+            // TestIDLabel
+            // 
+            this.TestIDLabel.AutoSize = true;
+            this.TestIDLabel.Location = new System.Drawing.Point(11, 63);
+            this.TestIDLabel.Name = "TestIDLabel";
+            this.TestIDLabel.Size = new System.Drawing.Size(57, 20);
+            this.TestIDLabel.TabIndex = 25;
+            this.TestIDLabel.Text = "Test ID:";
+            // 
+            // CustomerLabel
+            // 
+            this.CustomerLabel.AutoSize = true;
+            this.CustomerLabel.Location = new System.Drawing.Point(11, 27);
+            this.CustomerLabel.Name = "CustomerLabel";
+            this.CustomerLabel.Size = new System.Drawing.Size(75, 20);
+            this.CustomerLabel.TabIndex = 23;
+            this.CustomerLabel.Text = "Customer:";
+            // 
             // MainBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1080, 720);
-            this.Controls.Add(this.FindBtn);
-            this.Controls.Add(this.DisconnectBtn);
-            this.Controls.Add(this.OtherSpecsGroup);
-            this.Controls.Add(this.SensorParameterGroup);
-            this.Controls.Add(this.ReportGroup);
-            this.Controls.Add(this.ProgressLabel);
-            this.Controls.Add(this.ProgressBar);
-            this.Controls.Add(this.SensorsStatusGroup);
-            this.Controls.Add(this.SpeedLabel);
-            this.Controls.Add(this.SpeedUpdown);
-            this.Controls.Add(this.ConnectBtn);
-            this.Controls.Add(this.COMLabel);
-            this.Controls.Add(this.COMCombo);
-            this.Controls.Add(this.SensorsLabel);
-            this.Controls.Add(this.SensorCombo);
-            this.Controls.Add(this.StartBtn);
-            this.Controls.Add(this.StopBtn);
-            this.Controls.Add(this.MagnetBtn);
-            this.Controls.Add(this.DownBtn);
-            this.Controls.Add(this.UpBtn);
-            this.Controls.Add(this.PlotFigure);
+            this.ClientSize = new System.Drawing.Size(1080, 721);
+            this.Controls.Add(this.RecordPanel);
             this.Controls.Add(this.NavPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximumSize = new System.Drawing.Size(1098, 768);
             this.Name = "MainBoard";
             this.Text = "MainBoard";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainBoard_FormClosing);
             this.Load += new System.EventHandler(this.MainBoard_Load);
             this.NavPanel.ResumeLayout(false);
+            this.NavPanel.PerformLayout();
             this.LogoPanel.ResumeLayout(false);
             this.LogoPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -589,6 +679,10 @@
             this.OtherSpecsGroup.PerformLayout();
             this.SensorsStatusGroup.ResumeLayout(false);
             this.SensorsStatusGroup.PerformLayout();
+            this.RecordPanel.ResumeLayout(false);
+            this.RecordPanel.PerformLayout();
+            this.ExportGroup.ResumeLayout(false);
+            this.ExportGroup.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -597,13 +691,10 @@
         #endregion
 
         private Panel NavPanel;
-        private Panel LogoPanel;
-        private PictureBox pictureBox1;
-        private Label IUDLABlabel;
         private OxyPlot.WindowsForms.PlotView PlotFigure;
         private Button UpBtn;
         private Button DownBtn;
-        private Button MagnetBtn;
+        private Button MagOnBtn;
         private Button StopBtn;
         private Button StartBtn;
         private ComboBox SensorCombo;
@@ -613,8 +704,6 @@
         private Button ConnectBtn;
         private NumericUpDown SpeedUpdown;
         private Label SpeedLabel;
-        private ProgressBar ProgressBar;
-        private Label ProgressLabel;
         private GroupBox ReportGroup;
         private Button SaveBtn;
         private TextBox MaxForceText;
@@ -642,5 +731,16 @@
         private Label MagnetSensorLabel;
         private GroupBox SensorsStatusGroup;
         private Button FindBtn;
+        private Panel RecordPanel;
+        private Panel LogoPanel;
+        private PictureBox pictureBox1;
+        private Label IUDLABlabel;
+        private Label CustomerLabel;
+        private GroupBox ExportGroup;
+        private Label TestIDLabel;
+        private Button NewIDBtn;
+        private TextBox TestIDText;
+        private TextBox CustomerText;
+        private Button MagOffBtn;
     }
 }
